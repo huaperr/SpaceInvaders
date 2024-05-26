@@ -7,8 +7,10 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            PlayerMovement.Instance.score += 100;
             Destroy(collision.gameObject);
             Destroy(gameObject);
+            
         }
     }
 }
