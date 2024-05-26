@@ -10,6 +10,11 @@ public class PlayerMovement : MonoBehaviour
     private float screenWidthWorldUnits;
     private float playerWidthWorldUnits;
 
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 10.0f;
+    public float fireRate = 0.5f;
+    private float nextFireTime = 0.0f;
+
     void Start()
     {
         Camera mainCamera = Camera.main;
@@ -28,5 +33,18 @@ public class PlayerMovement : MonoBehaviour
         Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(pos.x, -screenWidthWorldUnits + playerWidthWorldUnits, screenWidthWorldUnits - playerWidthWorldUnits);
         transform.position = pos;
+
+        if (Time.time > nextFireTime)
+        {
+            nextFireTime = Time.time + fireRate;
+            Shoot();
+        }
+    }
+
+    void Shoot()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.up * projectileSpeed;
     }
 }
