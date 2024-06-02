@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 4123094557763713816}
   - component: {fileID: -357878310796554721}
   - component: {fileID: -6675163303646417267}
-  - component: {fileID: 7966297426110479558}
+  - component: {fileID: -3608033684067990699}
   m_Layer: 0
-  m_Name: Capsule
-  m_TagString: Projectile
+  m_Name: EnemyBullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7966297426110479558
+--- !u!114 &-3608033684067990699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,8 +158,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5726459962590116329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5f758a261837954ebd3b11ec3ad18a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 63a5dd24d5420064d98f44cb38e6ef8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpPrefab: {fileID: 5853993328489934972, guid: 25fdbc5ca88037e48992226f2d60a146, type: 3}
-  powerUpDropChance: 1
+  speed: 10
