@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float projectileSpeed = 10.0f;
     public float fireRate = 0.5f;
     private float nextFireTime = 0.0f;
+    public float duration = 10f;
 
     bool powerUp;
 
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        powerUp = false;
         Instance = this;
 
         Camera mainCamera = Camera.main;
@@ -51,13 +53,19 @@ public class PlayerMovement : MonoBehaviour
         Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(pos.x, -screenWidthWorldUnits + playerWidthWorldUnits, screenWidthWorldUnits - playerWidthWorldUnits);
         transform.position = pos;
-        
-        
-        if(powerUp)
+
+        if (Time.time > nextFireTime)
         {
-            DoubleShoot();
+            if (powerUp)
+            {
+                DoubleShoot();
+            }
+            else
+            {
+                Shoot();
+            }
+            nextFireTime = Time.time + fireRate;
         }
-        else { Shoot(); }
 
         numScore.text = score.ToString();
     }
@@ -73,26 +81,42 @@ public class PlayerMovement : MonoBehaviour
 
     void DoubleShoot()
     {
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        // Primer proyectil
+        GameObject projectile1 = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        Rigidbody2D rb1 = projectile1.GetComponent<Rigidbody2D>();
+        rb1.velocity = (Vector2.up + Vector2.left * 0.1f) * projectileSpeed;
+
+        // Segundo proyectil
         GameObject projectile2 = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.up * projectileSpeed;
+        Rigidbody2D rb2 = projectile2.GetComponent<Rigidbody2D>();
+        rb2.velocity = (Vector2.up + Vector2.right * 0.1f) * projectileSpeed;
 
         audioSource.PlayOneShot(bulletSound);
     }
 
     public void ActivateRapidFire(float duration)
     {
-        rapidFireActive = true;
-        rapidFireEndTime = Time.time + duration;
+        StartCoroutine(RapidFireRoutine(duration));
+    }
+
+    private IEnumerator RapidFireRoutine(float duration)
+    {
+        powerUp = true;
+        yield return new WaitForSeconds(duration);
+        powerUp = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.tag == "PowerUp") 
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "PowerUp")
         {
-            Destroy(collision.collider.gameObject);
-            powerUp = true;
+            Destroy(collision.gameObject);
+            ActivateRapidFire(duration);
         }
     }
 }

@@ -230,6 +230,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5726459962590116329, guid: 4375c0be67924614aa8a18a5b6f322a9, type: 3}
   projectileSpeed: 10
   fireRate: 0.5
+  duration: 10
   bulletSound: {fileID: 8300000, guid: 0fa82f39404233e49a4a5749c381df73, type: 3}
 --- !u!61 &99948836
 BoxCollider2D:
@@ -1232,7 +1233,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   bulletSpawnPoint: {fileID: 0}
   shootingInterval: 1
-  rapidFirePowerUpPrefab: {fileID: 0}
+  rapidFirePowerUpPrefab: {fileID: 5853993328489934972, guid: 25fdbc5ca88037e48992226f2d60a146, type: 3}
   powerUpDropChance: 0.2
 --- !u!1 &2115733101
 GameObject:

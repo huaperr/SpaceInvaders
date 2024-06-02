@@ -5,6 +5,12 @@ using UnityEngine;
 public class DoubleShoot : MonoBehaviour
 {
     public float duration = 10f;
+    public float descentSpeed = 1f; // Velocidad de descenso
+
+    private void Update()
+    {
+        transform.Translate(Vector2.down * descentSpeed * Time.deltaTime);
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -22,14 +28,11 @@ public class DoubleShoot : MonoBehaviour
             playerMovement.ActivateRapidFire(duration);
         }
 
-        // Desactivar el sprite y el collider del power-up mientras está activo
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
-        // Esperar la duración del power-up
         yield return new WaitForSeconds(duration);
 
-        // Destruir el power-up después de que se agote el tiempo
         Destroy(gameObject);
     }
 }

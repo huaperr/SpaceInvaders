@@ -136,7 +136,7 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 6145663123490533696}
   shootingInterval: 1
   rapidFirePowerUpPrefab: {fileID: 5853993328489934972, guid: 25fdbc5ca88037e48992226f2d60a146, type: 3}
-  powerUpDropChance: 1
+  powerUpDropChance: 0.2
 --- !u!61 &3170170913161267501
 BoxCollider2D:
   m_ObjectHideFlags: 0
